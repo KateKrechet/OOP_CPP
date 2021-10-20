@@ -28,7 +28,7 @@ public:
 	}
 	double distance(double x, double y)
 	{
-		return sqrt((this->x = x*x) + (this->y = y*y));
+		return sqrt((this->x*x) + (this->y*y));
 	}
 
 };
