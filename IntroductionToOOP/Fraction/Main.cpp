@@ -1,11 +1,11 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 class Fraction
 {
-	int integer;//Целая часть
-	int numerator;//Числитель
-	int denominator;//Знаменатель
+	int integer;//Р¦РµР»Р°СЏ С‡Р°СЃС‚СЊ
+	int numerator;//Р§РёСЃР»РёС‚РµР»СЊ
+	int denominator;//Р—РЅР°РјРµРЅР°С‚РµР»СЊ
 
 public:
 	int get_integer()const
@@ -42,7 +42,7 @@ public:
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
 	Fraction(int integer)
-	{//Single-argument constructor - Конструктор с 1 параметром
+	{//Single-argument constructor - РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ 1 РїР°СЂР°РјРµС‚СЂРѕРј
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
@@ -87,19 +87,19 @@ public:
 	//Methods
 	void to_proper()
 	{
-		//переводит дробь в правильную
+		//РїРµСЂРµРІРѕРґРёС‚ РґСЂРѕР±СЊ РІ РїСЂР°РІРёР»СЊРЅСѓСЋ
 		integer += numerator / denominator;
 		numerator %= denominator;
 	}
 	void to_improper()
 	{
-		//переводит дробь в неправильную
+		//РїРµСЂРµРІРѕРґРёС‚ РґСЂРѕР±СЊ РІ РЅРµРїСЂР°РІРёР»СЊРЅСѓСЋ
 		numerator += integer * denominator;
 		integer = 0;
 	}
 	void reduce()
 	{
-		//сокращает дробь
+		//СЃРѕРєСЂР°С‰Р°РµС‚ РґСЂРѕР±СЊ
 
 	}
 	void print()
@@ -127,7 +127,7 @@ void main()
 {
 	setlocale(LC_ALL, "");
 #ifdef CONSTRUCTORS_CHECK
-	Fraction A;//конструктор по умолчанию
+	Fraction A;//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	A.print();
 	Fraction B = 5;//Single-argument constructor
 	B.print();
