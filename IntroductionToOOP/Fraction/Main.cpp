@@ -1,6 +1,8 @@
 ﻿#include<iostream>
 using namespace std;
 
+int nod(int a, int b);
+
 class Fraction
 {
 	int integer;//Целая часть
@@ -84,12 +86,66 @@ public:
 		cout << "CopyAssigment:\t" << this << endl;
 		return *this;
 	}
+
+	Fraction& operator*(const Fraction& other)
+	{
+		this->to_improper();
+		numerator = numerator * (other.get_integer() * other.get_denominator() + other.get_numerator());
+		denominator = denominator * other.get_denominator();
+		this->to_proper();
+		reduce();
+		return *this;
+	}
+	Fraction& operator/(const Fraction& other)
+	{
+		this->to_improper();
+		numerator = numerator * other.get_denominator();
+		denominator = denominator * (other.get_integer() * other.get_denominator() + other.get_numerator());
+		reduce();
+		this->to_proper();
+		return *this;
+	}
+
+	Fraction& operator+(const Fraction& other)
+	{
+		this->to_improper();
+		if (denominator == other.get_denominator())
+		{
+			numerator = numerator + (other.get_integer() * other.get_denominator() + other.get_numerator());
+			denominator = other.get_denominator();
+		}
+		else
+		{
+			numerator = numerator * other.get_denominator() + (other.get_integer() * other.get_denominator() + other.get_numerator()) * denominator;
+			denominator = denominator * other.get_denominator();
+		}
+		this->to_proper();
+		reduce();
+		return *this;
+	}
+	Fraction& operator-(const Fraction& other)
+	{
+		this->to_improper();
+		if (denominator == other.get_denominator())
+		{
+			numerator = numerator - (other.get_integer() * other.get_denominator() + other.get_numerator());
+			denominator = other.get_denominator();
+		}
+		else
+		{
+			numerator = numerator * other.get_denominator() - (other.get_integer() * other.get_denominator() + other.get_numerator()) * denominator;
+			denominator = denominator * other.get_denominator();
+		}
+		//this->to_proper();
+		//reduce();
+		return *this;
+	}
 	//Methods
 	void to_proper()
 	{
 		//переводит дробь в правильную
 		integer += numerator / denominator;
-		numerator %= denominator;
+		integer>0?numerator %= denominator:abs(numerator %= denominator);
 	}
 	void to_improper()
 	{
@@ -100,6 +156,9 @@ public:
 	void reduce()
 	{
 		//сокращает дробь
+		int x = nod(numerator, denominator);
+		numerator = numerator / x;
+		denominator = denominator / x;
 
 	}
 	void print()
@@ -141,4 +200,31 @@ void main()
 	A.print();
 	A.to_improper();
 	A.print();
+	A.reduce();
+	A.print();
+	A.to_proper();
+	A.print();
+	Fraction B(5, 2);
+	Fraction C(5, 2);
+	Fraction D = B * C;
+	D.print();
+	Fraction F(5, 2);
+	Fraction G(2, 1, 2);
+	Fraction E = F / G;
+	E.print();
+	Fraction X(1,3);
+	Fraction Y(5,2);
+	Fraction Z = X - Y;
+	Z.print();
+
+}
+
+int nod(int a, int b)
+{
+	while (b > 0) {
+		int c = a % b;
+		a = b;
+		b = c;
+	}
+	return a;
 }
